@@ -64,11 +64,11 @@ namespace Leap71
                 m_nNumberInZ    = nNumberInZ;
             
                 m_aUnitCells = new List<IUnitCell>();
-                for (uint nX = 1; nX < nNumberInX; nX++)
+                for (uint nX = 1; nX <= nNumberInX; nX++)
                 {
-                    for (uint nY = 1; nY < nNumberInY; nY++)
+                    for (uint nY = 1; nY <= nNumberInY; nY++)
                     {
-                        for (uint nZ = 1; nZ < nNumberInZ; nZ++)
+                        for (uint nZ = 1; nZ <= nNumberInZ; nZ++)
                         {
                             Vector3 vecCorner_01 = vecGetInternalBoxPt(oBox, nX - 1, nY - 1, nZ - 1);
                             Vector3 vecCorner_02 = vecGetInternalBoxPt(oBox, nX,     nY - 1, nZ - 1);
@@ -105,11 +105,11 @@ namespace Leap71
                 m_nNumberInZ    = nNumberInZ;
             
                 m_aUnitCells = new List<IUnitCell>();
-                for (uint nX = 1; nX < nNumberInX; nX++)
+                for (uint nX = 1; nX <= nNumberInX; nX++)
                 {
-                    for (uint nY = 1; nY < nNumberInY; nY++)
+                    for (uint nY = 1; nY <= nNumberInY; nY++)
                     {
-                        for (uint nZ = 1; nZ < nNumberInZ; nZ++)
+                        for (uint nZ = 1; nZ <= nNumberInZ; nZ++)
                         {
                             Vector3 vecCorner_01 = vecGetInternalLensPt(oLens, nX - 1, nY - 1, nZ - 1);
                             Vector3 vecCorner_02 = vecGetInternalLensPt(oLens, nX,     nY - 1, nZ - 1);
@@ -146,11 +146,11 @@ namespace Leap71
                 m_nNumberInZ    = nNumberInZ;
             
                 m_aUnitCells = new List<IUnitCell>();
-                for (uint nX = 1; nX < nNumberInX; nX++)
+                for (uint nX = 1; nX <= nNumberInX; nX++)
                 {
-                    for (uint nY = 1; nY < nNumberInY; nY++)
+                    for (uint nY = 1; nY <= nNumberInY; nY++)
                     {
-                        for (uint nZ = 1; nZ < nNumberInZ; nZ++)
+                        for (uint nZ = 1; nZ <= nNumberInZ; nZ++)
                         {
                             Vector3 vecCorner_01 = vecGetInternalSegmentPt(oSegment, nX - 1, nY - 1, nZ - 1);
                             Vector3 vecCorner_02 = vecGetInternalSegmentPt(oSegment, nX,     nY - 1, nZ - 1);
@@ -178,9 +178,9 @@ namespace Leap71
 
             protected Vector3 vecGetInternalBoxPt(BaseBox oBox, uint nX, uint nY, uint nZ)
             {
-                float fLengthRatio  = (1f * (float)nZ / (float)(m_nNumberInZ - 1)) - 0f;        //0 to 1
-                float fWidthRatio   = (2f * (float)nX / (float)(m_nNumberInX - 1)) - 1f;        //(-1) to (+1)
-                float fDepthRatio   = (2f * (float)nY / (float)(m_nNumberInY - 1)) - 1f;        //(-1) to (+1)
+                float fLengthRatio  = (1f * (float)nZ / (float)m_nNumberInZ) - 0f;        //0 to 1
+                float fWidthRatio   = (2f * (float)nX / (float)m_nNumberInX) - 1f;        //(-1) to (+1)
+                float fDepthRatio   = (2f * (float)nY / (float)m_nNumberInY) - 1f;        //(-1) to (+1)
 
                 Vector3 vecPt       = oBox.vecGetSurfacePoint(fWidthRatio, fDepthRatio, fLengthRatio);
                 return vecPt;
@@ -188,9 +188,9 @@ namespace Leap71
 
             protected Vector3 vecGetInternalLensPt(BaseLens oLens, uint nX, uint nY, uint nZ)
             {
-                float fPhiRatio     = (1f * (float)nZ / (float)(m_nNumberInZ - 1)) - 0f;        //0 to 1
-                float fHeightRatio  = (1f * (float)nX / (float)(m_nNumberInX - 1)) - 0f;        //0 to 1
-                float fRadiusRatio  = (1f * (float)nY / (float)(m_nNumberInY - 1)) - 0f;        //0 to 1
+                float fPhiRatio     = (1f * (float)nZ / (float)m_nNumberInZ ) - 0f;        //0 to 1
+                float fHeightRatio  = (1f * (float)nX / (float)m_nNumberInX ) - 0f;        //0 to 1
+                float fRadiusRatio  = (1f * (float)nY / (float)m_nNumberInY ) - 0f;        //0 to 1
 
                 Vector3 vecPt       = oLens.vecGetSurfacePoint(fHeightRatio, fPhiRatio, fRadiusRatio);
                 return vecPt;
@@ -198,9 +198,9 @@ namespace Leap71
 
             protected Vector3 vecGetInternalSegmentPt(BasePipeSegment oSegment, uint nX, uint nY, uint nZ)
             {
-                float fPhiRatio     = (1f * (float)nZ / (float)(m_nNumberInZ - 1)) - 0f;        //0 to 1
-                float fLengthRatio  = (1f * (float)nX / (float)(m_nNumberInX - 1)) - 0f;        //0 to 1
-                float fRadiusRatio  = (1f * (float)nY / (float)(m_nNumberInY - 1)) - 0f;        //0 to 1
+                float fPhiRatio     = (1f * (float)nZ / (float)m_nNumberInZ ) - 0f;        //0 to 1
+                float fLengthRatio  = (1f * (float)nX / (float)m_nNumberInX ) - 0f;        //0 to 1
+                float fRadiusRatio  = (1f * (float)nY / (float)m_nNumberInY ) - 0f;        //0 to 1
 
                 Vector3 vecPt       = oSegment.vecGetSurfacePoint(fLengthRatio, fPhiRatio, fRadiusRatio);
                 return vecPt;
