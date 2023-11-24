@@ -156,17 +156,17 @@ namespace Leap71
                 Sh.PreviewLine(new List<Vector3>() { m_aCornerPoints[2], m_aCornerPoints[6] }, Cp.clrBlack);
                 Sh.PreviewLine(new List<Vector3>() { m_aCornerPoints[3], m_aCornerPoints[7] }, Cp.clrBlack);
 
-                //corners
+                ////corners
                 //Sh.PreviewPointCloud(aGetCornerPoints(), 0.1f, Cp.clrRed);
 
                 ////faces
-                //string strColor = Cp.clrRandom();
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[0], m_aCornerPoints[1], m_aCornerPoints[2], m_aCornerPoints[3]), strColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[4], m_aCornerPoints[5], m_aCornerPoints[6], m_aCornerPoints[7]), strColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[0], m_aCornerPoints[1], m_aCornerPoints[5], m_aCornerPoints[4]), strColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[1], m_aCornerPoints[2], m_aCornerPoints[6], m_aCornerPoints[5]), strColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[2], m_aCornerPoints[3], m_aCornerPoints[7], m_aCornerPoints[6]), strColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[3], m_aCornerPoints[0], m_aCornerPoints[4], m_aCornerPoints[7]), strColor, 0.3f);
+                //ColorFloat clrColor = Cp.clrRandom();
+                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[0], m_aCornerPoints[1], m_aCornerPoints[2], m_aCornerPoints[3]), clrColor, 0.3f);
+                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[4], m_aCornerPoints[5], m_aCornerPoints[6], m_aCornerPoints[7]), clrColor, 0.3f);
+                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[0], m_aCornerPoints[1], m_aCornerPoints[5], m_aCornerPoints[4]), clrColor, 0.3f);
+                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[1], m_aCornerPoints[2], m_aCornerPoints[6], m_aCornerPoints[5]), clrColor, 0.3f);
+                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[2], m_aCornerPoints[3], m_aCornerPoints[7], m_aCornerPoints[6]), clrColor, 0.3f);
+                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[3], m_aCornerPoints[0], m_aCornerPoints[4], m_aCornerPoints[7]), clrColor, 0.3f);
             }
         }
     }
