@@ -77,6 +77,7 @@ namespace Leap71
                 Vector3 vecCentre       = m_xCell.vecGetCellCentre();
                 float fDist             = (vecPt - vecCentre).Length();
                 float fRatio            = fDist / (0.5f * (m_xCell.oGetCellBounding().vecMax - m_xCell.oGetCellBounding().vecMin).Length());
+                fRatio                  = Uf.fLimitValue(fRatio, 0f, 1f);
                 float fBeamThickness    = Uf.fTransFixed(m_fMinBeamThickness, m_fMaxBeamThickness, fRatio);
                 return fBeamThickness;
             }
