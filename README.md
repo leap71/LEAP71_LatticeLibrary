@@ -182,17 +182,17 @@ Once you have classes in place to cover the three interfaces, you can simply cal
 
 ```c#
 //interfaces
-ICellArray xCellArray					= new NoisedRegularCellArray(voxBounding, 20, 20, 20);
-ILattice xLatticeType					= new CustomLattice();
-IBeamThickness xBeamThickness	= new CellBasedBeamThickness(1f, 4f);
-			    xBeamThickness.SetBoundingVoxels(voxBounding);
+ICellArray xCellArray         = new NoisedRegularCellArray(voxBounding, 20, 20, 20);
+ILattice xLatticeType         = new CustomLattice();
+IBeamThickness xBeamThickness = new CellBasedBeamThickness(1f, 4f);
+xBeamThickness.SetBoundingVoxels(voxBounding);
 
-uint nSubSample               = 5;
-Voxels voxLattice             = voxGetFinalLatticeGeometry(
-                                                        xCellArray,
-                                                        xLatticeType,
-                                                        xBeamThickness,
-                                                        nSubSample);
+uint nSubSample    = 5;
+Voxels voxLattice  = voxGetFinalLatticeGeometry(
+                         xCellArray,
+                         xLatticeType,
+                         xBeamThickness,
+                         nSubSample);
 ```
 
 
@@ -214,7 +214,7 @@ public Voxels oCreateFinalLatticeGeometry(
     xBeamThickness.UpdateCell(xCell);
     xLatticeType.AddCell(ref oLattice, xCell, xBeamThickness, nSubSample);
   }
-  Voxels voxLattice	= new Voxels(oLattice);
+  Voxels voxLattice = new Voxels(oLattice);
   return voxLattice;
 }
 ```

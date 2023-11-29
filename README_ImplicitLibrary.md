@@ -36,7 +36,7 @@ Implicit patterns are typically periodic, that can repeat forever without a dist
 
 ```c#
 //bounding object
-BaseBox oBox			 = new BaseBox(new LocalFrame(), 50, 50, 50);
+BaseBox oBox.      = new BaseBox(new LocalFrame(), 50, 50, 50);
 Voxels voxBounding = oBox.voxConstruct();
 ```
 
@@ -90,9 +90,12 @@ public float fSignedDistance(in Vector3 vecPt)
   double dZ       = vecPt.Z;
 
   //calculate the gyroid surface equation
-  double dDist 	  = Math.Sin(m_fFrequencyScale * dX) * Math.Cos(m_fFrequencyScale * dY) +
-    								Math.Sin(m_fFrequencyScale * dY) * Math.Cos(m_fFrequencyScale * dZ) +
-                    Math.Sin(m_fFrequencyScale * dZ) * Math.Cos(m_fFrequencyScale * dX);
+  double dDist 	  = Math.Sin(m_fFrequencyScale * dX) *
+                    Math.Cos(m_fFrequencyScale * dY) +
+                    Math.Sin(m_fFrequencyScale * dY) * 
+                    Math.Cos(m_fFrequencyScale * dZ) +
+                    Math.Sin(m_fFrequencyScale * dZ) * 
+                    Math.Cos(m_fFrequencyScale * dX);
 
   //apply thickness to the gyroid surface
   return (float)(Math.Abs(dDist) - 0.5f * m_fWallThickness);
