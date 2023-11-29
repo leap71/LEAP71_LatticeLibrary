@@ -2,13 +2,13 @@
 
 ## Prep
 
-You should have [PicoGK](https://github.com/leap71/PicoGK) up and running on your computer and have the [ShapeKernel](https://github.com/leap71/LEAP71_ShapeKernel) library included in your Visual Studio project.
+You should have [PicoGK](https://github.com/leap71/PicoGK) up and running on your computer and have the [ShapeKernel](https://github.com/leap71/LEAP71_ShapeKernel) Library included in your Visual Studio project. This part of the documentation deals with **Lattices**, which are beam-based structures. If your are looking for the **[Implicit Library](README_ImplicitLibrary.md),** head over to the second part.
 
 
 
 ## Getting Started
 
-You can add the Lattice libraryin two ways:
+You can add the Lattice library in two ways:
 
 - Beginner
   - download the LatticeLibrary source code as zip file from https://github.com/leap71/LEAP71_LatticeLibrary
@@ -26,14 +26,12 @@ You can add the Lattice libraryin two ways:
 
 In order to get something on your screen, you can modify the PicoGK library instantiation within Program.cs to call one of our example Task functions (either `LatticeLibraryShowCase.RegularTask` or `LatticeLibraryShowCase.ConformalTask` ). The results in the viewer will look like in the image above.
 
-
-
 ```c#
 using Leap71.ShapeKernel;
 using Leap71.LatticeLibraryExamples;
 using PicoGK;
 
-string strOutputFolder = "/Users/josefinelissner/Documents/Code++/LatticeTests";
+string strOutputFolder = "/Users/youruser/Documents/Code++/LatticeTests";
 
 try
 {
@@ -56,23 +54,23 @@ catch (Exception e)
 
 ## Workflow
 
-PicoGK can be used to render complex lattice structures used for lightweighting infills or porous meta-materials. Most latticing tools are very powerful black-box libraries with many available presets and choices. If you want to tinker around with creating your own custom lattice designs, you can use the workflow that we are presenting here. It is more like a framework, that is very basic to start with and open. Due to its structure it can be easily extended and customized through your own code and gain complexity. The workflow consists of three independent components: an array of cells, a logic to be applied per cell (lattice type) and a spatial beam thickness distribution.
+PicoGK can be used to render complex lattice structures used for lightweighting infills or porous meta-materials. Most latticing tools are very powerful black-box libraries with many available presets and choices. If, however, you want to tinker around with creating your own custom lattice designs, you can use the workflow that we are presenting here. It is more like a framework, that is very basic to start with and open. Due to its structure it can be easily extended and customized through your own code and gain complexity. The workflow consists of three independent components: an array of cells, a logic to be applied per cell (lattice type) and a spatial beam thickness distribution.
 
 ![](Documentation/Workflow.png)
 
-There is no clear order in which these three components need to happen and they can even have different interdependencies. For example, a beam thickness distribution can be applied locally per cell or globally across an entire bounding object that holds many cells. A lattice type can be constant or react to the shape of an individual cell. A cell can change its size according to what the local beam thickness is intended to be... and so on. Many existing workflows are much more constrained, but in order to allow for a maximum of flexibility, we are choosing to represent each of these three components as interfaces. If you want to customize one of them, you will write a new class that inherits from that interface:
+There is no clear order in which these three components need to happen and they can even have different interdependencies. For example, a beam thickness distribution can be applied locally per cell or globally across an entire bounding object that holds many cells. A lattice type can be constant or react to the shape of an individual cell. A cell can change its size according to what the local beam thickness is intended to be... and so on. Many existing workflows are much more constrained, but in order to allow for a maximum of flexibility, we chose to represent each of these three components as interfaces. If you want to customize one of them, you will write a new class that inherits from that interface:
 
 - Interface `ICellArray` provides a list of cells.
 - Interface `ILatticeType` provides the logic of how points are derived from the corner points of a cell and connected using straight beams or splines.
 - Interface `IBeamThickness` provides the information of what the beam radius for any given point in space should be.
 
-Once you have classes that adhere to these interfaces, you can simply call the function `oCreateFinalLatticeGeometry()` to obtain the final lattice object. How this function looks like is shown at the very end of this documentation. In our case, the function returns the lattice geometry rendered into voxels, so you can apply the PicoGK standard operations such as `Smoothen()`, `Offset()` and all Boolean function to it and eventually mesh it and export it as a print file. 
+Once you have classes that adhere to these interfaces, you can simply call the function `voxGetFinalLatticeGeometry()` to obtain the final lattice object. How this function looks like is shown at the very end of this documentation. In our case, the function returns the lattice geometry rendered into voxels, so you can apply the PicoGK standard operations such as `Smoothen()`, `Offset()` and all Boolean function to it and eventually mesh it and export it as a print file. 
 
 
 
 ## Bounding Voxels
 
-Many of the unit cell arrays are periodic, that can repeat forever without a distinct start and end point. Therefore, we need to define a box object or a voxelfield to keep the lattice within bounds. For our examples, we are using some of the ShapeKernel BaseShapes and call the resulting voxels `voxBounding`.
+Many of the unit cell arrays are periodic and can repeat forever without a distinct start and end point. Therefore, we need to define a box object or a voxelfield to keep the lattice within bounds. For our examples, we are using some of the ShapeKernel BaseShapes and call the resulting voxels `voxBounding`.
 
 
 
@@ -178,7 +176,7 @@ Lastly, we will need something that tells the thickness of the lattice beams for
 
 ## Workflow
 
-Once you have classes in place to cover the three interfaces, you can simply call `oCreateFinalLatticeGeometry()`, which will apply the connection rules of the lattice type to each of the cells in the array and query the beam thickness distribution for each point of each beam that it draws. The output is the final lattice geometry rendered as voxels. Check out the code of the example Task functions!
+Once you have classes in place to cover the three interfaces, you can simply call `voxGetFinalLatticeGeometry()`, which will apply the connection rules of the lattice type to each of the cells in the array and query the beam thickness distribution for each point of each beam that it draws. The output is the final lattice geometry rendered as voxels. Check out the code of the example Task functions!
 
 
 
@@ -190,7 +188,7 @@ IBeamThickness xBeamThickness	= new CellBasedBeamThickness(1f, 4f);
 			    xBeamThickness.SetBoundingVoxels(voxBounding);
 
 uint nSubSample               = 5;
-Voxels voxLattice             = oCreateFinalLatticeGeometry(
+Voxels voxLattice             = voxGetFinalLatticeGeometry(
                                                         xCellArray,
                                                         xLatticeType,
                                                         xBeamThickness,
@@ -248,4 +246,4 @@ voxLattice = Sh.voxIntersect(voxLattice, voxBounding);
 
 ## Next Steps
 
-This initial set of code is meant to show how latticing workflows can be done conceptually in PicoGK and how they may be extended to customize and increase the sophistication of the resulting structures. It should give you a starting point for at least simple, procedural lattices. Feel free to tinker around and contribute to our open-source latticing capabilities!
+This initial set of code is meant to show how latticing workflows can be done conceptually in PicoGK and how they may be extended to customize and increase the sophistication of the resulting structures. It should give you a starting point for at least simple, procedural lattices. Feel free to tinker around and contribute to our open-source latticing capabilities! If you want to explore Implicits in PicoGK as well, you can continue with the second part: [Implicit Library](README_ImplicitLibrary.md).

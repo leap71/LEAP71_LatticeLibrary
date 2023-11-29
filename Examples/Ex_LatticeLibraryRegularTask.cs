@@ -29,18 +29,18 @@ namespace Leap71
     {
         partial class LatticeLibraryShowCase
         {
-            public static void ConformalTask()
+            public static void RegularTask()
             {
-                //Step 1: define base shape to conform to
-                BaseBox oShape                  = ConformalShowcaseShapes.oGetBox_01();
-                //BaseLens oShape                 = ConformalShowcaseShapes.oGetLens_01();
-                //BasePipeSegment oShape          = ConformalShowcaseShapes.oGetSegment_01();
-                Voxels voxBounding              = oShape.voxConstruct();
+                //Step 1: define bounding object
+                BaseSphere oSphere				= new BaseSphere(new LocalFrame(), 50);
+			    Voxels voxBounding              = oSphere.voxConstruct();
 
 
 
                 //Step 2: define class for ICellArray interface
-                ICellArray xCellArray           = new ConformalCellArray(oShape, 6, 8, 15);
+                float fNoiseLevel               = 0.2f;
+			    ICellArray xCellArray			= new RegularCellArray(voxBounding, 20, 20, 20, fNoiseLevel);
+                //ICellArray xCellArray           = new RegularUnitCell(20, 20, 20, fNoiseLevel);
 
 
 
@@ -52,7 +52,7 @@ namespace Leap71
 
 
                 //Step 4: define class for IBeamThickness interface
-                IBeamThickness xBeamThickness = new CellBasedBeamThickness(2f, 0.1f);
+                IBeamThickness xBeamThickness	= new CellBasedBeamThickness(1f, 4f);
                 //IBeamThickness xBeamThickness   = new ConstantBeamThickness(2f);
                 //IBeamThickness xBeamThickness   = new BoundaryBeamThickness(1f, 4f);
                 //IBeamThickness xBeamThickness   = new GlobalFuncBeamThickness(1f, 4f);
@@ -61,8 +61,8 @@ namespace Leap71
 
 
                 //Step 5: generate final lattice geometry from three components
-                uint nSubSample             = 5;
-                Voxels voxLattice           = oCreateFinalLatticeGeometry(
+                uint nSubSample                 = 5;
+                Voxels voxLattice               = voxGetFinalLatticeGeometry(
                                                         xCellArray,
                                                         xLatticeType,
                                                         xBeamThickness,
@@ -70,15 +70,15 @@ namespace Leap71
 
 
                 //Step 6: post-processing
-                voxLattice                  = Sh.voxOverOffset(voxLattice, 1f, 0f);
-                voxLattice                  = Sh.voxIntersect(voxLattice, voxBounding);
+                voxLattice                      = Sh.voxOverOffset(voxLattice, 1f, 0f);
+                voxLattice						= Sh.voxIntersect(voxLattice, voxBounding);
 
 
 
                 //Step 7: visualization
                 ColorFloat clrColor = Cp.clrRandom();
                 Sh.PreviewVoxels(voxLattice, clrColor);
-                Sh.PreviewVoxels(voxBounding, clrColor, 0.1f);
+                Sh.PreviewVoxels(voxBounding, clrColor, 0.5f);
 
                 foreach (IUnitCell xCell in xCellArray.aGetUnitCells())
                 {
@@ -88,7 +88,26 @@ namespace Leap71
 
 
                 //Step 8: export
-                //Sh.ExportVoxelsToSTLFile(voxLattice, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstConformalLattice"));
+                //Sh.ExportVoxelsToSTLFile(voxLattice, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstRegularLattice"));
+            }
+
+            /// <summary>
+            /// Functions to combine the lattice workflow components into a final object
+            /// </summary>
+            public static Voxels voxGetFinalLatticeGeometry(
+                ICellArray      xCellArray,
+                ILatticeType    xLatticeType,
+                IBeamThickness  xBeamThickness,
+                uint            nSubSample = 2)
+            {
+                Lattice oLattice = new Lattice();
+                foreach (IUnitCell xCell in xCellArray.aGetUnitCells())
+                {
+                    xBeamThickness.UpdateCell(xCell);
+                    xLatticeType.AddCell(ref oLattice, xCell, xBeamThickness, nSubSample);
+                }
+                Voxels voxLattice = new Voxels(oLattice);
+                return voxLattice;
             }
         }
     }
