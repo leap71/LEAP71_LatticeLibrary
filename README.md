@@ -40,7 +40,6 @@ try
         LatticeLibraryShowCase.RegularTask,
         strOutputFolder
         );
-    Library.Log("Finished Task successfully.");
 }
 catch (Exception e)
 {
