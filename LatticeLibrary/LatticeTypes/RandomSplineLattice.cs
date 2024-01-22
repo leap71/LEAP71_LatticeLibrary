@@ -46,11 +46,19 @@ namespace Leap71
 	    public class RandomSplineLattice : ILatticeType
         {
             protected float m_dX, m_dY, m_dZ;
+            protected int m_nPasses;
 
             /// <summary>
-            /// Custom lattice type that connects random corners of a unit cell.
-            /// </summary>
-            public RandomSplineLattice() { }
+            /// Custom lattice type that connects random corners of a cell.
+            /// <param name="nPasses">How many passes the algorithm should
+            /// perform. By default it runs one time, meaning each corner
+            /// point is connected to one other point. For higher numbers
+            /// each corner point is connected to nPasses other points
+            /// </param>
+            public RandomSplineLattice(int nPasses=1)
+            {
+                m_nPasses = nPasses;
+            }
 
             public void AddCell(
                 ref Lattice     oLattice,
@@ -64,19 +72,27 @@ namespace Leap71
 
                 List<Vector3> aCornerPoints = xCell.aGetCornerPoints();
 
-                for (int i = 0; i < aCornerPoints.Count; i++)
+                for (int nPass = 0; nPass < m_nPasses; nPass++)
                 {
-                    int j = (int)(Uf.fGetRandomLinear(0, aCornerPoints.Count));
+                    for (int i = 0; i < aCornerPoints.Count; i++)
+                    {
+                        int j;
+                        do
+                        {
+                            j = (int)(Uf.fGetRandomLinear(0, aCornerPoints.Count));
+                        }
+                        while (j == i);
+                        // Make sure we don't connect the corner to itself
 
-                    List<Vector3> aPoints = new List<Vector3>();
-                    aPoints.Add(aCornerPoints[i]);
-                    aPoints.Add(xCell.vecGetCellCentre() + vecGetNoise());
-                    aPoints.Add(aCornerPoints[j]);
+                        List<Vector3> aPoints = new List<Vector3>();
+                        aPoints.Add(aCornerPoints[i]);
+                        aPoints.Add(xCell.vecGetCellCentre() + vecGetNoise());
+                        aPoints.Add(aCornerPoints[j]);
 
-                    aPoints = SplineOperations.aGetNURBSpline(aPoints, 20);
-                    AddBeam(ref oLattice, aPoints, xBeamThickness);
+                        aPoints = SplineOperations.aGetNURBSpline(aPoints, 20);
+                        AddBeam(ref oLattice, aPoints, xBeamThickness);
+                    }
                 }
-
             }
 
             protected Vector3 vecGetNoise()
