@@ -50,13 +50,13 @@ namespace Leap71
 
         public class RegularCellArray : ICellArray
 	    {
-            protected Voxels            m_oVoxels;
-            protected float             m_dX;
-            protected float             m_dY;
-            protected float             m_dZ;
-            protected List<IUnitCell>   m_aUnitCells;
-            protected float             m_fNoiseLevel;
-            protected Random            m_oRandom;
+            Voxels            m_oVoxels;
+            float             m_dX;
+            float             m_dY;
+            float             m_dZ;
+            List<IUnitCell>   m_aUnitCells;
+            float             m_fNoiseLevel;
+            Random            m_oRandom = new();
 
 
             /// <summary>
@@ -75,7 +75,7 @@ namespace Leap71
                 m_dX            = dX;
                 m_dY            = dY;
                 m_dZ            = dZ;
-                m_fNoiseLevel   = Uf.fLimitValue(MathF.Abs(fNoiseLevel), 0f, 0.3f);
+                m_fNoiseLevel   = float.Clamp(MathF.Abs(fNoiseLevel), 0f, 0.3f);
                 m_oVoxels       = oVoxels;
                 m_oVoxels.CalculateProperties(out float fVolumeCubicMM, out BBox3 oBBox);
 
@@ -110,7 +110,7 @@ namespace Leap71
                 }
             }
 
-            protected Vector3 vecGetCorner(float fX, float fY, float fZ)
+            Vector3 vecGetCorner(float fX, float fY, float fZ)
             {
                 int iX = (int)(fX * 1000f);
                 int iY = (int)(fY * 1000f);
@@ -122,7 +122,7 @@ namespace Leap71
                 return vecCorner;
             }
 
-            protected Vector3 vecGetNoise()
+            Vector3 vecGetNoise()
             {
                 Vector3 vecNoise = new Vector3(
                     fGetRandomLinear(-m_fNoiseLevel * m_dX, m_fNoiseLevel * m_dX),
@@ -145,12 +145,12 @@ namespace Leap71
 
         public class RegularUnitCell : ICellArray
 	    {
-            protected float             m_dX;
-            protected float             m_dY;
-            protected float             m_dZ;
-            protected List<IUnitCell>   m_aUnitCells;
-            protected float             m_fNoiseLevel;
-            protected Random            m_oRandom;
+            float             m_dX;
+            float             m_dY;
+            float             m_dZ;
+            List<IUnitCell>   m_aUnitCells;
+            float             m_fNoiseLevel;
+            Random            m_oRandom = new();
 
 
             /// <summary>
@@ -168,7 +168,7 @@ namespace Leap71
                 m_dX            = dX;
                 m_dY            = dY;
                 m_dZ            = dZ;
-                m_fNoiseLevel   = Uf.fLimitValue(MathF.Abs(fNoiseLevel), 0f, 0.3f);
+                m_fNoiseLevel   = float.Clamp(MathF.Abs(fNoiseLevel), 0f, 0.3f);
 
                 m_aUnitCells = new List<IUnitCell>();
                 float fX = -0.5f * m_dX;
@@ -196,7 +196,7 @@ namespace Leap71
                 m_aUnitCells.Add(xCell);
             }
 
-            protected Vector3 vecGetCorner(float fX, float fY, float fZ)
+            Vector3 vecGetCorner(float fX, float fY, float fZ)
             {
                 int iX = (int)(fX * 1000f);
                 int iY = (int)(fY * 1000f);
@@ -208,7 +208,7 @@ namespace Leap71
                 return vecCorner;
             }
 
-            protected Vector3 vecGetNoise()
+            Vector3 vecGetNoise()
             {
                 Vector3 vecNoise = new Vector3(
                     fGetRandomLinear(-m_fNoiseLevel * m_dX, m_fNoiseLevel * m_dX),

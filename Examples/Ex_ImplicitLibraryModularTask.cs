@@ -31,49 +31,46 @@ namespace Leap71
         {
             public static void ModularTask()
             {
-                //Step 1: define bounding object
+                // Step 1: define bounding object
                 BasePipe oPipe                      = new BasePipe(new LocalFrame(), 50, 20, 50);
                 Voxels voxBounding                  = oPipe.voxConstruct();
 
 
-
-                //Step 2: define class for IRawTPMSPattern interface
-                //IRawTPMSPattern xRawTPMSPattern      = new RawGyroidTPMSPattern();
-                //IRawTPMSPattern xRawTPMSPattern      = new RawLidinoidTPMSPattern();
-                //IRawTPMSPattern xRawTPMSPattern      = new RawSchwarzPrimitiveTPMSPattern();
-                //IRawTPMSPattern xRawTPMSPattern      = new RawSchwarzDiamondTPMSPattern();
+                // Step 2: define class for IRawTPMSPattern interface
+                // IRawTPMSPattern xRawTPMSPattern      = new RawGyroidTPMSPattern();
+                // IRawTPMSPattern xRawTPMSPattern      = new RawLidinoidTPMSPattern();
+                // IRawTPMSPattern xRawTPMSPattern      = new RawSchwarzPrimitiveTPMSPattern();
+                // IRawTPMSPattern xRawTPMSPattern      = new RawSchwarzDiamondTPMSPattern();
                 RawTransitionTPMSPattern xRawTPMSPattern     = new RawTransitionTPMSPattern();
 
 
-
-                //Step 3: define class for ICoordinateTrafo interface
+                // Step 3: define class for ICoordinateTrafo interface
                 ICoordinateTrafo xCoordinateTrafo   = new ScaleTrafo(10f, 10f, 10f);
-                //ICoordinateTrafo xCoordinateTrafo     = new RadialTrafo(40, 0.001f);
-                //ICoordinateTrafo xCoordinateTrafo   = new FunctionalScaleTrafo();
-                //ICoordinateTrafo xCoordinateTrafo   = new CombinedTrafo(new List<ICoordinateTrafo>()
+                // ICoordinateTrafo xCoordinateTrafo   = new RadialTrafo(40, 0.001f);
+                // ICoordinateTrafo xCoordinateTrafo   = new FunctionalScaleTrafo();
+                // ICoordinateTrafo xCoordinateTrafo   = new CombinedTrafo(new List<ICoordinateTrafo>()
                 //                                                    {
                 //                                                        new ScaleTrafo(20f, 20f, 10f),
                 //                                                        new RadialTrafo(2, 0f)
                 //                                                    });
 
 
-                //Step 4: define class for ISplittingLogic interface
+                // Step 4: define class for ISplittingLogic interface
                 ISplittingLogic xSplittingLogic     = new FullWallLogic();
-                //ISplittingLogic xSplittingLogic     = new FullVoidLogic();
-                //ISplittingLogic xSplittingLogic     = new PositiveHalfWallLogic();
-                //ISplittingLogic xSplittingLogic     = new NegativeHalfWallLogic();
-                //ISplittingLogic xSplittingLogic     = new PositiveVoidLogic();
-                //ISplittingLogic xSplittingLogic     = new NegativeVoidLogic();
+                // ISplittingLogic xSplittingLogic     = new FullVoidLogic();
+                // ISplittingLogic xSplittingLogic     = new PositiveHalfWallLogic();
+                // ISplittingLogic xSplittingLogic     = new NegativeHalfWallLogic();
+                // ISplittingLogic xSplittingLogic     = new PositiveVoidLogic();
+                // ISplittingLogic xSplittingLogic     = new NegativeVoidLogic();
 
 
-
-                //Step 5: define class for IBeamThickness interface
+                // Step 5: define class for IBeamThickness interface
                 IBeamThickness xWallThickness       = new ConstantBeamThickness(0.5f);
-                //IBeamThickness xWallThickness       = new GlobalFuncBeamThickness(0.5f, 2f);
+                // IBeamThickness xWallThickness       = new GlobalFuncBeamThickness(0.5f, 2f);
 
 
 
-                //Step 6: define class for IImplicit interface
+                // Step 6: define class for IImplicit interface
                 IImplicit xImplicitPattern          = new ImplicitModular(
                                                                     xRawTPMSPattern,
                                                                     xWallThickness,
@@ -81,22 +78,18 @@ namespace Leap71
                                                                     xSplittingLogic);
 
 
-                //Step 7: generate final implicit geometry
-                Voxels voxImplicit                  = Sh.voxIntersectImplicit(
-                                                        voxBounding,
-                                                        xImplicitPattern);
+                // Step 7: generate final implicit geometry
+                Voxels voxImplicit                  = voxBounding.voxIntersectImplicit(xImplicitPattern);
 
 
-                //Step 4: visualization
+                // Step 4: visualization
                 ColorFloat clrColor = Cp.clrRandom();
                 Sh.PreviewVoxels(voxImplicit, clrColor);
                 Sh.PreviewVoxels(voxBounding, clrColor, 0.3f);
 
 
-
-                //Step 5: export
-                //Sh.ExportVoxelsToSTLFile(voxImplicit, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstModularImplicit"));
-
+                //// Step 5: export
+                // Sh.ExportVoxelsToSTLFile(voxImplicit, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstModularImplicit"));
                 Library.Log("Finished Task successfully.");
             }
         }

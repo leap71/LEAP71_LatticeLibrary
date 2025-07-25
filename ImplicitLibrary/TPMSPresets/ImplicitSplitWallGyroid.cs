@@ -43,9 +43,9 @@ namespace Leap71
     {
         public class ImplicitSplitWallGyroid : IImplicit
 		{
-            protected float         m_fFrequencyScale;
-			protected float		    m_fWallThickness;
-            protected bool          m_bSide;
+            float           m_fFrequencyScale;
+			float		    m_fWallThickness;
+            bool            m_bSide;
 
             /// <summary>
             /// Helper class for an implicit gyroid pattern.
@@ -63,12 +63,12 @@ namespace Leap71
                 double dY = vecPt.Y;
                 double dZ = vecPt.Z;
 
-                //calculate the gyroid surface equation
+                // calculate the gyroid surface equation
                 double dDist =   Math.Sin(m_fFrequencyScale * dX) * Math.Cos(m_fFrequencyScale * dY) +
                                  Math.Sin(m_fFrequencyScale * dY) * Math.Cos(m_fFrequencyScale * dZ) +
                                  Math.Sin(m_fFrequencyScale * dZ) * Math.Cos(m_fFrequencyScale * dX);
 
-                //apply thickness to the gyroid surface
+                // apply thickness to the gyroid surface
                 if (m_bSide == true)
                 {
                     float fFinalDist = (float)(Math.Max(dDist, Math.Abs(dDist) - 0.5f * m_fWallThickness));

@@ -31,13 +31,13 @@ namespace Leap71
         {
             public static void RandomTask()
             {
-                //Step 1: define bounding object
+                // Step 1: define bounding object
                 BaseBox oBox				    = new BaseBox(new LocalFrame(), 50, 50, 50);
 			    Voxels voxBounding              = oBox.voxConstruct();
 
 
-                //Step 2: define random deformation field
-                BBox3 oBoundingBox              = Sh.oGetBoundingBox(voxBounding);
+                // Step 2: define random deformation field
+                BBox3 oBoundingBox              = voxBounding.oCalculateBoundingBox();
                 float fDeformationAmplitude     = 3f;
                 float fUnderlayingGridSize      = 10;
                 RandomDeformationField oField   = new RandomDeformationField(
@@ -47,29 +47,24 @@ namespace Leap71
                                                         fDeformationAmplitude);
 
 
-                //Step 2: define class for IImplicit interface
+                // Step 2: define class for IImplicit interface
                 float fUnitSize                 = 10f;
                 float fWallThickness            = 0.5f;
                 IImplicit xImplicitPattern      = new ImplicitRandomizedSchwarzPrimitive(fUnitSize, fWallThickness, oField);
 
 
-
-                //Step 3: generate final implicit geometry
-                Voxels voxImplicit              = Sh.voxIntersectImplicit(
-                                                        voxBounding,
-                                                        xImplicitPattern);
+                // Step 3: generate final implicit geometry
+                Voxels voxImplicit              = voxBounding.voxIntersectImplicit(xImplicitPattern);
 
 
-                //Step 4: visualization
+                // Step 4: visualization
                 ColorFloat clrColor             = Cp.clrRandom();
                 Sh.PreviewVoxels(voxImplicit,   clrColor);
                 Sh.PreviewVoxels(voxBounding,   clrColor, 0.1f);
 
 
-
-                //Step 5: export
-                //Sh.ExportVoxelsToSTLFile(voxImplicit, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstRandomImplicit"));
-
+                //// Step 5: export
+                // Sh.ExportVoxelsToSTLFile(voxImplicit, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstRandomImplicit"));
                 Library.Log("Finished Task successfully.");
             }
         }

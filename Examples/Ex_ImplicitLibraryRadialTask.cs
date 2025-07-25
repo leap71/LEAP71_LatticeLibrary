@@ -31,33 +31,30 @@ namespace Leap71
         {
             public static void RadialTask()
             {
-                //Step 1: define bounding object
+                // Step 1: define bounding object
                 BasePipe oPipe				    = new BasePipe(new LocalFrame(), 50, 20, 50);
                 Voxels voxBounding              = oPipe.voxConstruct();
 
 
-                //Step 2: define class for IImplicit interface
+                // Step 2: define class for IImplicit interface
                 float fUnitSize                 = 10f;
                 float fWallThickness            = 0.5f;
                 uint nSamplesPerRound           = 16;
 			    IImplicit xImplicitPattern		= new ImplicitRadialGyroid(nSamplesPerRound, fUnitSize, fWallThickness);
 
 
-                //Step 3: generate final implicit geometry
-                Voxels voxImplicit              = Sh.voxIntersectImplicit(
-                                                        voxBounding,
-                                                        xImplicitPattern);
+                // Step 3: generate final implicit geometry
+                Voxels voxImplicit              = voxBounding.voxIntersectImplicit(xImplicitPattern);
 
-                //Step 4: visualization
+
+                // Step 4: visualization
                 ColorFloat clrColor             = Cp.clrRandom();
                 Sh.PreviewVoxels(voxImplicit, clrColor);
                 Sh.PreviewVoxels(voxBounding, clrColor, 0.3f);
 
 
-
-                //Step 5: export
-                //Sh.ExportVoxelsToSTLFile(voxImplicit, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstRadialGyroid"));
-
+                //// Step 5: export
+                // Sh.ExportVoxelsToSTLFile(voxImplicit, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstRadialGyroid"));
                 Library.Log("Finished Task successfully.");
             }
         }

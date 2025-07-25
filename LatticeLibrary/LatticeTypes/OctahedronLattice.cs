@@ -77,7 +77,7 @@ namespace Leap71
                 Vector3 vecBackwardFace = 0.25f * (vecPt6 + vecPt7 + vecPt2 + vecPt3);
                 Vector3 vecLeftFace     = 0.25f * (vecPt4 + vecPt7 + vecPt0 + vecPt3);
 
-                //beam connecting logic
+                // beam connecting logic
                 AddBeam(ref oLattice, vecLowerFace, vecRightFace, xBeamThickness, nSubSamples);
                 AddBeam(ref oLattice, vecLowerFace, vecLeftFace, xBeamThickness, nSubSamples);
                 AddBeam(ref oLattice, vecLowerFace, vecForwardFace, xBeamThickness, nSubSamples);
@@ -94,7 +94,7 @@ namespace Leap71
                 AddBeam(ref oLattice, vecBackwardFace, vecLeftFace, xBeamThickness, nSubSamples);
             }
 
-            protected void AddBeam(ref Lattice oLattice, Vector3 vecPt1, Vector3 vecPt2, IBeamThickness xBeamThickness, uint nSamples = 2)
+            void AddBeam(ref Lattice oLattice, Vector3 vecPt1, Vector3 vecPt2, IBeamThickness xBeamThickness, uint nSamples = 2)
             {
                 if (nSamples == 2)
                 {

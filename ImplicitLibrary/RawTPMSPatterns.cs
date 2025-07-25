@@ -46,7 +46,7 @@ namespace Leap71
 
         public class RawGyroidTPMSPattern : IRawTPMSPattern
         {
-            protected const float m_fFrequencyScale = (2f * MathF.PI);
+            const float m_fFrequencyScale = (2f * MathF.PI);
 
             public RawGyroidTPMSPattern() { }
 
@@ -61,7 +61,7 @@ namespace Leap71
 
         public class RawLidinoidTPMSPattern : IRawTPMSPattern
         {
-            protected const float m_fFrequencyScale = 0.5f * (2f * MathF.PI);
+            const float m_fFrequencyScale = 0.5f * (2f * MathF.PI);
 
             public RawLidinoidTPMSPattern() { }
 
@@ -80,7 +80,7 @@ namespace Leap71
 
         public class RawSchwarzPrimitiveTPMSPattern : IRawTPMSPattern
         {
-            protected const float m_fFrequencyScale = (2f * MathF.PI);
+            const float m_fFrequencyScale = (2f * MathF.PI);
 
             public RawSchwarzPrimitiveTPMSPattern() { }
 
@@ -95,7 +95,7 @@ namespace Leap71
 
         public class RawSchwarzDiamondTPMSPattern : IRawTPMSPattern
         {
-            protected const float m_fFrequencyScale = 0.5f * (2f * MathF.PI);
+            const float m_fFrequencyScale = 0.5f * (2f * MathF.PI);
 
             public RawSchwarzDiamondTPMSPattern() { }
 
@@ -113,8 +113,8 @@ namespace Leap71
 
         public class RawTransitionTPMSPattern : IRawTPMSPattern
         {
-            protected IRawTPMSPattern   m_xTPMS_01;
-            protected IRawTPMSPattern   m_xTPMS_02;
+            IRawTPMSPattern   m_xTPMS_01;
+            IRawTPMSPattern   m_xTPMS_02;
 
             public RawTransitionTPMSPattern()
             {
@@ -126,7 +126,7 @@ namespace Leap71
             {
                 float fDist_01  = m_xTPMS_01.fGetSignedDistance(fX, fY, fZ);
                 float fDist_02  = m_xTPMS_02.fGetSignedDistance(fX, fY, fZ);
-                float fRatio    = Uf.fLimitValue((float)(fX + 2f) / 5f, 0f, 1f);
+                float fRatio    = float.Clamp((float)(fX + 2f) / 5f, 0f, 1f);
                 float fDist     = Uf.fTransFixed(
                                         fDist_01,
                                         fDist_02,

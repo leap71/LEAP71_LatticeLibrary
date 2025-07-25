@@ -45,12 +45,12 @@ namespace Leap71
     {
         public class RandomDeformationField
 		{
-            protected List<List<List<Vector3>>> m_aDiscretePoints;
-            protected List<List<List<Vector3>>> m_aDiscreteData;
-            protected BBox3                     m_oBBox;
-            protected uint                      m_nXSamples;
-            protected uint                      m_nYSamples;
-            protected uint                      m_nZSamples;
+            List<List<List<Vector3>>> m_aDiscretePoints;
+            List<List<List<Vector3>>> m_aDiscreteData;
+            BBox3                     m_oBBox;
+            uint                      m_nXSamples;
+            uint                      m_nYSamples;
+            uint                      m_nZSamples;
          
 
             /// <summary>
@@ -90,12 +90,12 @@ namespace Leap71
 
                         for (int iZ = 0; iZ < m_nZSamples; iZ++)
                         {
-                            //rigid grid point
+                            // rigid grid point
                             float fZ        = fZSize / (float)(m_nZSamples - 1) * iZ + m_oBBox.vecMin.Z;
                             Vector3 vecPt   = new Vector3(fX, fY, fZ);
                             aNewPointList.Add(vecPt);
 
-                            //random data point
+                            // random data point
                             aNewDataList.Add(new Vector3(
                                 Uf.fGetRandomLinear(fMinValue, fMaxValue),
                                 Uf.fGetRandomLinear(fMinValue, fMaxValue),
@@ -144,7 +144,7 @@ namespace Leap71
                 float fLowerZ = vecPt_xyz.Z;
                 float fUpperZ = vecPt_XYZ.Z;
 
-                //interpolate
+                // interpolate
                 float fXRatio = (vecPt.X - fLowerX) / (fUpperX - fLowerX);
                 float fYRatio = (vecPt.Y - fLowerY) / (fUpperY - fLowerY);
                 float fZRatio = (vecPt.Z - fLowerZ) / (fUpperZ - fLowerZ);
@@ -187,7 +187,7 @@ namespace Leap71
                 return vecInter;
             }
 
-            protected Vector3 vecGetLinearInterpolation(
+            Vector3 vecGetLinearInterpolation(
                 Vector3 vecMin,
                 Vector3 vecMax,
                 float fRatio)

@@ -57,7 +57,7 @@ namespace Leap71
         /// </summary>
         public class ConstantBeamThickness : IBeamThickness
         {
-            protected float m_fBeamThickness;
+            float m_fBeamThickness;
 
             public ConstantBeamThickness(float fBeamThickness)
             {
@@ -69,15 +69,9 @@ namespace Leap71
                 return m_fBeamThickness;
             }
 
-            public void UpdateCell(IUnitCell xCell)
-            {
+            public void UpdateCell(IUnitCell xCell) { }
 
-            }
-
-            public void SetBoundingVoxels(Voxels voxBounding)
-            {
-
-            }
+            public void SetBoundingVoxels(Voxels voxBounding) { }
         }
     }
 }

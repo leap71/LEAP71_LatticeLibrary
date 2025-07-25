@@ -34,10 +34,12 @@
 
 
 using System.Numerics;
-using Leap71.ShapeKernel;
+
 
 namespace Leap71
 {
+    using ShapeKernel;
+
     namespace LatticeLibrary
 	{
         public interface ICoordinateTrafo
@@ -47,9 +49,9 @@ namespace Leap71
 
         public class ScaleTrafo : ICoordinateTrafo
         {
-            protected float m_fUnitX;
-            protected float m_fUnitY;
-            protected float m_fUnitZ;
+            float m_fUnitX;
+            float m_fUnitY;
+            float m_fUnitZ;
 
             public ScaleTrafo(float fUnitX, float fUnitY, float fUnitZ)
             {
@@ -72,7 +74,7 @@ namespace Leap71
 
             public void Apply(out float fX, out float fY, out float fZ, Vector3 vecPt)
             {
-                float fRatio = Uf.fLimitValue(vecPt.Z / 50f, 0f, 1f);
+                float fRatio = float.Clamp(vecPt.Z / 50f, 0f, 1f);
                 fX = vecPt.X / (Uf.fTransFixed(20, 5, fRatio));
                 fY = vecPt.Y / (Uf.fTransFixed(20, 5, fRatio));
                 fZ = 10;
@@ -81,8 +83,8 @@ namespace Leap71
 
         public class RadialTrafo : ICoordinateTrafo
         {
-            protected uint m_nSamplesPerRound;
-            protected float m_dPhiPerZ;
+            uint    m_nSamplesPerRound;
+            float   m_dPhiPerZ;
 
             public RadialTrafo(uint nSamplesPerRound, float dPhiPerZ)
             {
@@ -102,7 +104,7 @@ namespace Leap71
 
         public class CombinedTrafo : ICoordinateTrafo
         {
-            protected List<ICoordinateTrafo> m_aTrafos;
+            List<ICoordinateTrafo> m_aTrafos;
 
             public CombinedTrafo(List<ICoordinateTrafo> aTrafos)
             {

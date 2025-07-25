@@ -44,10 +44,10 @@ namespace Leap71
     {
 	    public class ConformalCellArray : ICellArray
 	    {
-            protected uint              m_nNumberInX;
-            protected uint              m_nNumberInY;
-            protected uint              m_nNumberInZ;
-            protected List<IUnitCell>   m_aUnitCells;
+            uint              m_nNumberInX;
+            uint              m_nNumberInY;
+            uint              m_nNumberInZ;
+            List<IUnitCell>   m_aUnitCells;
 
             /// <summary>
             /// Regular grid cell array that is conformal to the specified BaseBox object.
@@ -176,31 +176,31 @@ namespace Leap71
                 }
             }
 
-            protected Vector3 vecGetInternalBoxPt(BaseBox oBox, uint nX, uint nY, uint nZ)
+            Vector3 vecGetInternalBoxPt(BaseBox oBox, uint nX, uint nY, uint nZ)
             {
-                float fLengthRatio  = (1f * (float)nZ / (float)m_nNumberInZ) - 0f;        //0 to 1
-                float fWidthRatio   = (2f * (float)nX / (float)m_nNumberInX) - 1f;        //(-1) to (+1)
-                float fDepthRatio   = (2f * (float)nY / (float)m_nNumberInY) - 1f;        //(-1) to (+1)
+                float fLengthRatio  = (1f * (float)nZ / (float)m_nNumberInZ) - 0f;        // 0 to 1
+                float fWidthRatio   = (2f * (float)nX / (float)m_nNumberInX) - 1f;        // (-1) to (+1)
+                float fDepthRatio   = (2f * (float)nY / (float)m_nNumberInY) - 1f;        // (-1) to (+1)
 
                 Vector3 vecPt       = oBox.vecGetSurfacePoint(fWidthRatio, fDepthRatio, fLengthRatio);
                 return vecPt;
             }
 
-            protected Vector3 vecGetInternalLensPt(BaseLens oLens, uint nX, uint nY, uint nZ)
+            Vector3 vecGetInternalLensPt(BaseLens oLens, uint nX, uint nY, uint nZ)
             {
-                float fPhiRatio     = (1f * (float)nZ / (float)m_nNumberInZ ) - 0f;        //0 to 1
-                float fHeightRatio  = (1f * (float)nX / (float)m_nNumberInX ) - 0f;        //0 to 1
-                float fRadiusRatio  = (1f * (float)nY / (float)m_nNumberInY ) - 0f;        //0 to 1
+                float fPhiRatio     = (1f * (float)nZ / (float)m_nNumberInZ ) - 0f;        // 0 to 1
+                float fHeightRatio  = (1f * (float)nX / (float)m_nNumberInX ) - 0f;        // 0 to 1
+                float fRadiusRatio  = (1f * (float)nY / (float)m_nNumberInY ) - 0f;        // 0 to 1
 
                 Vector3 vecPt       = oLens.vecGetSurfacePoint(fHeightRatio, fPhiRatio, fRadiusRatio);
                 return vecPt;
             }
 
-            protected Vector3 vecGetInternalSegmentPt(BasePipeSegment oSegment, uint nX, uint nY, uint nZ)
+            Vector3 vecGetInternalSegmentPt(BasePipeSegment oSegment, uint nX, uint nY, uint nZ)
             {
-                float fPhiRatio     = (1f * (float)nZ / (float)m_nNumberInZ ) - 0f;        //0 to 1
-                float fLengthRatio  = (1f * (float)nX / (float)m_nNumberInX ) - 0f;        //0 to 1
-                float fRadiusRatio  = (1f * (float)nY / (float)m_nNumberInY ) - 0f;        //0 to 1
+                float fPhiRatio     = (1f * (float)nZ / (float)m_nNumberInZ ) - 0f;        // 0 to 1
+                float fLengthRatio  = (1f * (float)nX / (float)m_nNumberInX ) - 0f;        // 0 to 1
+                float fRadiusRatio  = (1f * (float)nY / (float)m_nNumberInY ) - 0f;        // 0 to 1
 
                 Vector3 vecPt       = oSegment.vecGetSurfacePoint(fLengthRatio, fPhiRatio, fRadiusRatio);
                 return vecPt;
@@ -222,12 +222,12 @@ namespace Leap71
                 return oBox;
             }
 
-            protected static float fGetWidth_01(float fLengthRatio)
+            static float fGetWidth_01(float fLengthRatio)
             {
                 return 60 + 20 * MathF.Cos(5f * fLengthRatio);
             }
 
-            protected static float fGetDepth_01(float fLengthRatio)
+            static float fGetDepth_01(float fLengthRatio)
             {
                 return 80 - 40 * MathF.Cos(3f * fLengthRatio);
             }
@@ -241,12 +241,12 @@ namespace Leap71
                 return oLens;
             }
 
-            protected static float fGetLowerLens_01(float fPhi, float fRadiusRatio)
+            static float fGetLowerLens_01(float fPhi, float fRadiusRatio)
             {
                 return (-20) + 20f * fRadiusRatio;
             }
 
-            protected static float fGetUpperLens_01(float fPhi, float fRadiusRatio)
+            static float fGetUpperLens_01(float fPhi, float fRadiusRatio)
             {
                 return 20 + 5 * MathF.Cos(2f * fRadiusRatio);
             }
@@ -264,17 +264,17 @@ namespace Leap71
                 return oLens;
             }
 
-            protected static float fGetPhiRange_01(float fLengthRatio)
+            static float fGetPhiRange_01(float fLengthRatio)
             {
                 return MathF.PI - 0.45f * MathF.PI * MathF.Cos(3f * fLengthRatio);
             }
 
-            protected static float fGetInnerRadius_01(float fPhi, float fLengthRatio)
+            static float fGetInnerRadius_01(float fPhi, float fLengthRatio)
             {
                 return 20f + 10f * fLengthRatio;
             }
 
-            protected static float fGetOuterRadius_01(float fPhi, float fLengthRatio)
+            static float fGetOuterRadius_01(float fPhi, float fLengthRatio)
             {
                 return fGetInnerRadius_01(fPhi, fLengthRatio) + 15 + 5 * MathF.Cos(4f * fPhi);
             }

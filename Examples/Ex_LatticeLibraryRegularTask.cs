@@ -31,36 +31,32 @@ namespace Leap71
         {
             public static void RegularTask()
             {
-                //Step 1: define bounding object
+                // Step 1: define bounding object
                 BaseSphere oSphere				= new BaseSphere(new LocalFrame(), 50);
 			    Voxels voxBounding              = oSphere.voxConstruct();
 
 
-
-                //Step 2: define class for ICellArray interface
+                // Step 2: define class for ICellArray interface
                 float fNoiseLevel               = 0.2f;
 			    ICellArray xCellArray			= new RegularCellArray(voxBounding, 20, 20, 20, fNoiseLevel);
-                //ICellArray xCellArray           = new RegularUnitCell(20, 20, 20, fNoiseLevel);
+                // ICellArray xCellArray           = new RegularUnitCell(20, 20, 20, fNoiseLevel);
 
 
-
-                //Step 3: define class for ILatticeType interface
+                // Step 3: define class for ILatticeType interface
                 ILatticeType xLatticeType		= new BodyCentreLattice();
-                //ILatticeType xLatticeType       = new OctahedronLattice();
-                //ILatticeType xLatticeType       = new RandomSplineLattice();
+                // ILatticeType xLatticeType       = new OctahedronLattice();
+                // ILatticeType xLatticeType       = new RandomSplineLattice();
 
 
-
-                //Step 4: define class for IBeamThickness interface
+                // Step 4: define class for IBeamThickness interface
                 IBeamThickness xBeamThickness	= new CellBasedBeamThickness(1f, 4f);
-                //IBeamThickness xBeamThickness   = new ConstantBeamThickness(2f);
-                //IBeamThickness xBeamThickness   = new BoundaryBeamThickness(1f, 4f);
-                //IBeamThickness xBeamThickness   = new GlobalFuncBeamThickness(1f, 4f);
+                // IBeamThickness xBeamThickness   = new ConstantBeamThickness(2f);
+                // IBeamThickness xBeamThickness   = new BoundaryBeamThickness(1f, 4f);
+                // IBeamThickness xBeamThickness   = new GlobalFuncBeamThickness(1f, 4f);
                 xBeamThickness.SetBoundingVoxels(voxBounding);
 
 
-
-                //Step 5: generate final lattice geometry from three components
+                // Step 5: generate final lattice geometry from three components
                 uint nSubSample                 = 5;
                 Voxels voxLattice               = voxGetFinalLatticeGeometry(
                                                         xCellArray,
@@ -69,13 +65,12 @@ namespace Leap71
                                                         nSubSample);
 
 
-                //Step 6: post-processing
-                voxLattice                      = Sh.voxOverOffset(voxLattice, 1f, 0f);
-                voxLattice						= Sh.voxIntersect(voxLattice, voxBounding);
+                // Step 6: post-processing
+                voxLattice.Fillet(1.0f);              
+                voxLattice &= voxBounding;
 
 
-
-                //Step 7: visualization
+                // Step 7: visualization
                 ColorFloat clrColor = Cp.clrRandom();
                 Sh.PreviewVoxels(voxLattice, clrColor);
                 Sh.PreviewVoxels(voxBounding, clrColor, 0.5f);
@@ -86,15 +81,15 @@ namespace Leap71
                 }
 
 
-
-                //Step 8: export
-                //Sh.ExportVoxelsToSTLFile(voxLattice, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstRegularLattice"));
+                //// Step 8: export
+                // Sh.ExportVoxelsToSTLFile(voxLattice, Sh.strGetExportPath(Sh.EExport.STL, "MyFirstRegularLattice"));
+                Library.Log("Finished Task successfully.");
             }
 
             /// <summary>
             /// Functions to combine the lattice workflow components into a final object
             /// </summary>
-            public static Voxels voxGetFinalLatticeGeometry(
+            static Voxels voxGetFinalLatticeGeometry(
                 ICellArray      xCellArray,
                 ILatticeType    xLatticeType,
                 IBeamThickness  xBeamThickness,

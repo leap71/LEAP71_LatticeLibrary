@@ -43,11 +43,10 @@ namespace Leap71
 	{
         public class ImplicitModular : IImplicit
 		{
-			protected IBeamThickness	    m_xWallThickness;
-            protected IRawTPMSPattern       m_xRawTPMSPattern;
-            protected ICoordinateTrafo      m_xCoordinateTrafo;
-            protected ISplittingLogic       m_xSplittingLogic;
-            protected float                 m_fFrequencyScale;
+			IBeamThickness	        m_xWallThickness;
+            IRawTPMSPattern         m_xRawTPMSPattern;
+            ICoordinateTrafo        m_xCoordinateTrafo;
+            ISplittingLogic         m_xSplittingLogic;
 
             /// <summary>
             /// Helper class for an advanced implicit pattern.
@@ -75,7 +74,7 @@ namespace Leap71
 
                 float fRawSignedDistance    = m_xRawTPMSPattern.fGetSignedDistance(fX, fY, fZ);
 
-                //wall thickness in carthesian coordinates
+                // wall thickness in carthesian coordinates
                 float fWallThickness        = m_xWallThickness.fGetBeamThickness(vecPt);
 
                 float fFinalSignedDistance  = m_xSplittingLogic.fGetAdvancedSignedDistance(fRawSignedDistance, fWallThickness);

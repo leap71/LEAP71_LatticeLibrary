@@ -43,9 +43,9 @@ namespace Leap71
 	{
         public class ImplicitRandomizedSchwarzPrimitive : IImplicit
 		{
-            protected float                     m_fFrequencyScale;
-			protected float		                m_fWallThickness;
-            protected RandomDeformationField    m_oRandomField;
+            float                   m_fFrequencyScale;
+			float		            m_fWallThickness;
+            RandomDeformationField  m_oRandomField;
 
             /// <summary>
             /// Helper class for an implicit schwarz primitive pattern with randomize grid input.
@@ -59,7 +59,7 @@ namespace Leap71
 
 			public float fSignedDistance(in Vector3 vecPt)
 			{
-                //query deformation vector from field object
+                // query deformation vector from field object
                 Vector3 vecNoise = m_oRandomField.vecGetData(vecPt);
                 Vector3 vecNewPt = vecPt + vecNoise;
 
@@ -67,12 +67,12 @@ namespace Leap71
                 double dY = vecNewPt.Y;
                 double dZ = vecNewPt.Z;
 
-                //calculate the schwarz primitive surface equation
+                // calculate the schwarz primitive surface equation
                 double dDist =  (Math.Cos(m_fFrequencyScale * dX) +
                                  Math.Cos(m_fFrequencyScale * dY) +
                                  Math.Cos(m_fFrequencyScale * dZ));
 
-                //apply thickness to the schwarz primitive surface
+                // apply thickness to the schwarz primitive surface
                 float fFinalDist = (float)(Math.Abs(dDist) - 0.5f * m_fWallThickness);
                 return fFinalDist;
             }

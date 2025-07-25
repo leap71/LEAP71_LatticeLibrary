@@ -49,9 +49,9 @@ namespace Leap71
         /// </summary>
         public class CellBasedBeamThickness : IBeamThickness
         {
-            protected float     m_fMinBeamThickness;
-            protected float     m_fMaxBeamThickness;
-            protected IUnitCell m_xCell;
+            float       m_fMinBeamThickness;
+            float       m_fMaxBeamThickness;
+            IUnitCell?  m_xCell;
 
             public CellBasedBeamThickness(
                 float fMinBeamThickness,
@@ -68,24 +68,21 @@ namespace Leap71
 
             public float fGetBeamThickness(Vector3 vecPt)
             {
-                if (m_xCell == null)
+                if (m_xCell is null)
                 {
                     throw new Exception("No Unit Cell specified.");
                 }
 
-                //express position relative to cell
+                // express position relative to cell
                 Vector3 vecCentre       = m_xCell.vecGetCellCentre();
                 float fDist             = (vecPt - vecCentre).Length();
                 float fRatio            = fDist / (0.5f * (m_xCell.oGetCellBounding().vecMax - m_xCell.oGetCellBounding().vecMin).Length());
-                fRatio                  = Uf.fLimitValue(fRatio, 0f, 1f);
+                fRatio                  = float.Clamp(fRatio, 0f, 1f);
                 float fBeamThickness    = Uf.fTransFixed(m_fMinBeamThickness, m_fMaxBeamThickness, fRatio);
                 return fBeamThickness;
             }
 
-            public void SetBoundingVoxels(Voxels voxBounding)
-            {
-
-            }
+            public void SetBoundingVoxels(Voxels voxBounding) { }
         }
     }
 }

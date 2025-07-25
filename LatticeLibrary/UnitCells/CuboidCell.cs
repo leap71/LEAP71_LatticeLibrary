@@ -57,9 +57,9 @@ namespace Leap71
         /// </summary>
 	    public class CuboidCell : IUnitCell
         {
-            protected List<Vector3> m_aCornerPoints;
-            protected Vector3       m_vecCentre;
-            protected BBox3         m_oBBox;
+            List<Vector3> m_aCornerPoints;
+            Vector3       m_vecCentre;
+            BBox3         m_oBBox;
 
             /// <summary>
             /// Simple struct to hold the corner vertices of a cuboid
@@ -148,7 +148,7 @@ namespace Leap71
 
             public void PreviewUnitCell()
             {
-                //wireframe
+                // wireframe
                 Sh.PreviewLine(new List<Vector3>() { m_aCornerPoints[0], m_aCornerPoints[1], m_aCornerPoints[2], m_aCornerPoints[3], m_aCornerPoints[0] }, Cp.clrBlack);
                 Sh.PreviewLine(new List<Vector3>() { m_aCornerPoints[4], m_aCornerPoints[5], m_aCornerPoints[6], m_aCornerPoints[7], m_aCornerPoints[4] }, Cp.clrBlack);
                 Sh.PreviewLine(new List<Vector3>() { m_aCornerPoints[0], m_aCornerPoints[4] }, Cp.clrBlack);
@@ -156,17 +156,17 @@ namespace Leap71
                 Sh.PreviewLine(new List<Vector3>() { m_aCornerPoints[2], m_aCornerPoints[6] }, Cp.clrBlack);
                 Sh.PreviewLine(new List<Vector3>() { m_aCornerPoints[3], m_aCornerPoints[7] }, Cp.clrBlack);
 
-                ////corners
-                //Sh.PreviewPointCloud(aGetCornerPoints(), 0.1f, Cp.clrRed);
+                //// corners
+                // Sh.PreviewPointCloud(aGetCornerPoints(), 0.1f, Cp.clrRed);
 
-                ////faces
-                //ColorFloat clrColor = Cp.clrRandom();
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[0], m_aCornerPoints[1], m_aCornerPoints[2], m_aCornerPoints[3]), clrColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[4], m_aCornerPoints[5], m_aCornerPoints[6], m_aCornerPoints[7]), clrColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[0], m_aCornerPoints[1], m_aCornerPoints[5], m_aCornerPoints[4]), clrColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[1], m_aCornerPoints[2], m_aCornerPoints[6], m_aCornerPoints[5]), clrColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[2], m_aCornerPoints[3], m_aCornerPoints[7], m_aCornerPoints[6]), clrColor, 0.3f);
-                //Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[3], m_aCornerPoints[0], m_aCornerPoints[4], m_aCornerPoints[7]), clrColor, 0.3f);
+                //// faces
+                // ColorFloat clrColor = Cp.clrRandom();
+                // Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[0], m_aCornerPoints[1], m_aCornerPoints[2], m_aCornerPoints[3]), clrColor, 0.3f);
+                // Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[4], m_aCornerPoints[5], m_aCornerPoints[6], m_aCornerPoints[7]), clrColor, 0.3f);
+                // Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[0], m_aCornerPoints[1], m_aCornerPoints[5], m_aCornerPoints[4]), clrColor, 0.3f);
+                // Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[1], m_aCornerPoints[2], m_aCornerPoints[6], m_aCornerPoints[5]), clrColor, 0.3f);
+                // Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[2], m_aCornerPoints[3], m_aCornerPoints[7], m_aCornerPoints[6]), clrColor, 0.3f);
+                // Sh.PreviewMesh(MeshUtility.mshFromQuad(m_aCornerPoints[3], m_aCornerPoints[0], m_aCornerPoints[4], m_aCornerPoints[7]), clrColor, 0.3f);
             }
         }
     }

@@ -43,8 +43,8 @@ namespace Leap71
 	{
         public class ImplicitLidinoid : IImplicit
 		{
-            protected float         m_fFrequencyScale;
-			protected float		    m_fWallThickness;
+            float       m_fFrequencyScale;
+			float	    m_fWallThickness;
 
             /// <summary>
             /// Helper class for an implicit lidinoid pattern.
@@ -64,7 +64,7 @@ namespace Leap71
                 double dY = vecPt.Y;
                 double dZ = vecPt.Z;
 
-                //calculate the lidinoid surface equation
+                // calculate the lidinoid surface equation
                 double dDist =  +0.5f * (Math.Sin(2 * m_fFrequencyScale * dX) * Math.Cos(m_fFrequencyScale * dY) * Math.Sin(m_fFrequencyScale * dZ) +
                                          Math.Sin(2 * m_fFrequencyScale * dY) * Math.Cos(m_fFrequencyScale * dZ) * Math.Sin(m_fFrequencyScale * dX) +
                                          Math.Sin(2 * m_fFrequencyScale * dZ) * Math.Cos(m_fFrequencyScale * dX) * Math.Sin(m_fFrequencyScale * dY))
@@ -73,7 +73,7 @@ namespace Leap71
                                          Math.Cos(2 * m_fFrequencyScale * dY) * Math.Cos(2 * m_fFrequencyScale * dZ) +
                                          Math.Cos(2 * m_fFrequencyScale * dZ) * Math.Cos(2 * m_fFrequencyScale * dX));
 
-                //apply thickness to the lidinoid surface
+                // apply thickness to the lidinoid surface
                 float fFinalDist = (float)(Math.Abs(dDist) - 0.5f * m_fWallThickness);
                 return fFinalDist;
             }

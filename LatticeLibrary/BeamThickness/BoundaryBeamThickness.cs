@@ -49,9 +49,9 @@ namespace Leap71
         /// </summary>
         public class BoundaryBeamThickness : IBeamThickness
         {
-            protected float     m_fMinBeamThickness;
-            protected float     m_fMaxBeamThickness;
-            protected Voxels    m_voxBounding;
+            float     m_fMinBeamThickness;
+            float     m_fMaxBeamThickness;
+            Voxels?   m_voxBounding;
 
             public BoundaryBeamThickness(
                 float fMinBeamThickness,
@@ -63,21 +63,23 @@ namespace Leap71
 
             public float fGetBeamThickness(Vector3 vecPt)
             {
-                if (m_voxBounding == null)
+                if (m_voxBounding is null)
                 {
                     throw new Exception("No Boundary Voxels specified.");
                 }
 
-                //express position relative to boundary
-                Vector3 vecSurf      = Sh.vecGetClosestSurfacePoint(m_voxBounding, vecPt);
-                float fBeamThickness = Uf.fTransSmooth(m_fMaxBeamThickness, m_fMinBeamThickness, (vecSurf - vecPt).Length(), 15f, 5f);
+                // express position relative to boundary
+                bool bSuccess           = m_voxBounding.bClosestPointOnSurface(vecPt, out Vector3 vecSurf);
+                if (bSuccess == false)
+                {
+                    throw new Exception("No Closest Point found.");
+                }
+
+                float fBeamThickness    = Uf.fTransSmooth(m_fMaxBeamThickness, m_fMinBeamThickness, (vecSurf - vecPt).Length(), 15f, 5f);
                 return fBeamThickness;
             }
 
-            public void UpdateCell(IUnitCell xCell)
-            {
-
-            }
+            public void UpdateCell(IUnitCell xCell) { }
 
             public void SetBoundingVoxels(Voxels voxBounding)
             {

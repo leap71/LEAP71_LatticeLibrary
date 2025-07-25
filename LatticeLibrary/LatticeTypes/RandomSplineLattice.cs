@@ -45,8 +45,8 @@ namespace Leap71
     {
 	    public class RandomSplineLattice : ILatticeType
         {
-            protected float m_dX, m_dY, m_dZ;
-            protected int m_nPasses;
+            float   m_dX, m_dY, m_dZ;
+            int     m_nPasses;
 
             /// <summary>
             /// Custom lattice type that connects random corners of a cell.
@@ -95,7 +95,7 @@ namespace Leap71
                 }
             }
 
-            protected Vector3 vecGetNoise()
+            Vector3 vecGetNoise()
             {
                 Vector3 vecNoise = new Vector3(
                     Uf.fGetRandomLinear(-0.3f * m_dX, 0.3f * m_dX),
@@ -104,7 +104,7 @@ namespace Leap71
                 return vecNoise;
             }
 
-            protected void AddBeam(ref Lattice oLattice, List<Vector3> aPoints, IBeamThickness xBeamThickness)
+            void AddBeam(ref Lattice oLattice, List<Vector3> aPoints, IBeamThickness xBeamThickness)
             {
                 for (int i = 1; i < aPoints.Count; i++)
                 {

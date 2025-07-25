@@ -43,8 +43,8 @@ namespace Leap71
 	{
         public class ImplicitSchwarzPrimitive : IImplicit
 		{
-            protected float         m_fFrequencyScale;
-			protected float		    m_fWallThickness;
+            float       m_fFrequencyScale;
+			float	    m_fWallThickness;
 
             /// <summary>
             /// Helper class for an implicit schwarz primitive pattern.
@@ -61,12 +61,12 @@ namespace Leap71
                 double dY = vecPt.Y;
                 double dZ = vecPt.Z;
 
-                //calculate the schwarz primitive surface equation
+                // calculate the schwarz primitive surface equation
                 double dDist =  (Math.Cos(m_fFrequencyScale * dX) +
                                  Math.Cos(m_fFrequencyScale * dY) +
                                  Math.Cos(m_fFrequencyScale * dZ));
 
-                //apply thickness to the schwarz primitive surface
+                // apply thickness to the schwarz primitive surface
                 float fFinalDist = (float)(Math.Abs(dDist) - 0.5f * m_fWallThickness);
                 return fFinalDist;
             }

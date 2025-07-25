@@ -82,7 +82,7 @@ namespace Leap71
                 Vector3 vecCPt = xCell.vecGetCellCentre();
 
 
-                //beam connecting logic
+                // beam connecting logic
                 AddBeam(ref oLattice, vecPt0, vecCPt, xBeamThickness, nSubSamples);
                 AddBeam(ref oLattice, vecPt1, vecCPt, xBeamThickness, nSubSamples);
                 AddBeam(ref oLattice, vecPt2, vecCPt, xBeamThickness, nSubSamples);
@@ -93,7 +93,7 @@ namespace Leap71
                 AddBeam(ref oLattice, vecPt7, vecCPt, xBeamThickness, nSubSamples);
             }
 
-            protected void AddBeam(ref Lattice oLattice, Vector3 vecPt1, Vector3 vecPt2, IBeamThickness xBeamThickness, uint nSamples = 2)
+            void AddBeam(ref Lattice oLattice, Vector3 vecPt1, Vector3 vecPt2, IBeamThickness xBeamThickness, uint nSamples = 2)
             {
                 if (nSamples == 2)
                 {

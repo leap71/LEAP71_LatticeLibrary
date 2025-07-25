@@ -49,8 +49,8 @@ namespace Leap71
         /// </summary>
         public class GlobalFuncBeamThickness : IBeamThickness
         {
-            protected float     m_fMinBeamThickness;
-            protected float     m_fMaxBeamThickness;
+            float     m_fMinBeamThickness;
+            float     m_fMaxBeamThickness;
 
 
             public GlobalFuncBeamThickness(
@@ -61,22 +61,16 @@ namespace Leap71
                 m_fMaxBeamThickness = fMaxBeamThickness;
             }
 
-            public void UpdateCell(IUnitCell xCell)
-            {
-           
-            }
+            public void UpdateCell(IUnitCell xCell) { }
 
             public float fGetBeamThickness(Vector3 vecPt)
             {
-                float fRatio            = Uf.fLimitValue(0.02f * vecPt.X, 0f, 1f);
+                float fRatio            = float.Clamp(0.02f * vecPt.X, 0f, 1f);
                 float fBeamThickness    = Uf.fTransFixed(m_fMinBeamThickness, m_fMaxBeamThickness, fRatio);
                 return fBeamThickness;
             }
 
-            public void SetBoundingVoxels(Voxels voxBounding)
-            {
-
-            }
+            public void SetBoundingVoxels(Voxels voxBounding) { }
         }
     }
 }

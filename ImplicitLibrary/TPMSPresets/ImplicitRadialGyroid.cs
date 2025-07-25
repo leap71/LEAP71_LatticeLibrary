@@ -45,9 +45,9 @@ namespace Leap71
 	{
         public class ImplicitRadialGyroid : IImplicit
 		{
-            protected float         m_fFrequencyScale;
-			protected float		    m_fWallThickness;
-            protected uint          m_nSamplesPerRound;
+            float           m_fFrequencyScale;
+			float		    m_fWallThickness;
+            uint            m_nSamplesPerRound;
 
             /// <summary>
             /// Helper class for an implicit gyroid pattern.
@@ -61,7 +61,7 @@ namespace Leap71
 
 			public float fSignedDistance(in Vector3 vecPt)
 			{
-                //map carthesian point to cylindrical coordinates
+                // map carthesian point to cylindrical coordinates
                 float fRadius       = VecOperations.fGetRadius(vecPt);
                 float dPhi          = (2f * MathF.PI) / m_nSamplesPerRound;
                 float fPhi          = VecOperations.fGetPhi(vecPt) + MathF.PI;
@@ -71,12 +71,12 @@ namespace Leap71
                 double dY           = (double)(fPhiIntervals * fUnitSize);
                 double dZ           = vecPt.Z;
 
-                //calculate the gyroid surface equation
+                // calculate the gyroid surface equation
                 double dDist =   Math.Sin(m_fFrequencyScale * dX) * Math.Cos(m_fFrequencyScale * dY) +
                                  Math.Sin(m_fFrequencyScale * dY) * Math.Cos(m_fFrequencyScale * dZ) +
                                  Math.Sin(m_fFrequencyScale * dZ) * Math.Cos(m_fFrequencyScale * dX);
 
-                //apply thickness to the gyroid surface
+                // apply thickness to the gyroid surface
                 return (float)(Math.Abs(dDist) - 0.5f * m_fWallThickness);
             }
 		}
