@@ -87,7 +87,7 @@ namespace Leap71
             }
 
             /// <summary>
-            /// Functions to combine the lattice workflow components into a final object
+            /// Function to combine all lattice workflow components into a final object
             /// </summary>
             static Voxels voxGetFinalLatticeGeometry(
                 ICellArray      xCellArray,
