@@ -37,9 +37,10 @@ namespace Leap71
 
 
                 // Step 2: define random deformation field
+                float fDeformationAmplitude     = 8f;
+                float fUnderlayingGridSize      = 20;
                 BBox3 oBoundingBox              = voxBounding.oCalculateBoundingBox();
-                float fDeformationAmplitude     = 3f;
-                float fUnderlayingGridSize      = 10;
+                oBoundingBox.Grow(fDeformationAmplitude + 0.2f);
                 RandomDeformationField oField   = new RandomDeformationField(
                                                         oBoundingBox,
                                                         fUnderlayingGridSize,
@@ -60,7 +61,7 @@ namespace Leap71
                 // Step 4: visualization
                 ColorFloat clrColor             = Cp.clrRandom();
                 Sh.PreviewVoxels(voxImplicit,   clrColor);
-                Sh.PreviewVoxels(voxBounding,   clrColor, 0.1f);
+                // Sh.PreviewVoxels(voxBounding,   clrColor, 0.1f);
 
 
                 //// Step 5: export
